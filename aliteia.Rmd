@@ -1,0 +1,85 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r include=FALSE, echo = FALSE}
+library(knitr)
+```
+
+# Aliteia game
+## Traits
+```{r}
+charisma <- 0
+empathy <- 0
+intuition <- 0
+intelligence <- 3
+composure <- 3
+stamina <- 0
+dexterity <- 0
+strength <- 2
+```
+
+## Attributes
+
+## Memento
+Hackers
+- Lindy Equerra
+- Jack Wang
+
+Influentials
+- William Oxley, leder
+- Jennifer Fresnel, software
+- Lars Fox, security
+
+Knwons
+- Arthur Goldschmith
+- Leif Håkonson
+- Kung li
+
+## Status
+
+## Dice rolls
+```{r}
+library(tidyverse)
+df <- data.frame(trait = c(), dice = c(), result = c(), time = c(), context = c())
+```
+
+```{r}
+D <- function(x, trait = "_", context = "_") {
+  y <- round(runif(x) * 10, 0)
+  print(paste0("Result: ", y, " from ", x, " dice"))
+  return(rbind(
+    df,
+    c(
+      toString(trait),
+      toString(x),
+      toString(paste(y, collapse = ",")),
+      toString(format(Sys.time(), "%a %b %d %X %Y")),
+      toString(context)
+    ),
+    make.row.names = FALSE,
+    stringsAsFactors = FALSE
+  ))
+}
+```
+
+```{r}
+df[df['context'] == 'do Leif - will', c('context')] <-
+  'infiltrate Hestia with Oxley - will'
+```
+
+```{r}
+df <- D(6, "com", "kontrol over hestia")
+write_csv(df, "game.csv")
+write_delim(df['context'], "story.txt", delim = "\n")
+```
+
+I 1v1 med Oxley
+"Vær rolig"
+Prøver at køre inception
+Lade som om, jeg er rolig, men jeg prøver at komme længere ind
+
+
+
+
